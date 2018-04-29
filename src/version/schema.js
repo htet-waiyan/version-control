@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
+const mongooseUniqueValidator = require('mongoose-unique-validator');
 
 const VersionSchema = new mongoose.Schema({
     key: {type : String, required: 'Key is required', unique: true},
@@ -7,6 +8,11 @@ const VersionSchema = new mongoose.Schema({
         time: {type: Date, default: moment(), unique: true},
         object: { type:String, required: 'Object value is required'}
     }]
+})
+
+VersionSchema.plugin(mongooseUniqueValidator,{
+    type:'version-unique-validator',
+    message: '{PATH} {VALUE} already exists'
 })
 
 VersionSchema.static('findByTimeKey',function(timestamp,key){

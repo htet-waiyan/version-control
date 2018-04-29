@@ -2,8 +2,11 @@ const winston = require('winston');require('winston-daily-rotate-file');
 const { format } = require('logform');
 const config = require('./env/'+(process.env.NODE_ENV).toLowerCase());
 const path = require('path');
+const bodyParser = require('body-parser');
 
 module.exports = app => {
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({extended:true}));
     configLogger();
 }
 

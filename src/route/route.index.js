@@ -7,7 +7,7 @@ module.exports = app => {
      * IMPORTANT to place this route at the end of all registered routes
      */
     app.use('*',(req,res,next) => {
-        res.sendStatus(400);
+        res.sendStatus(404);
     })
 
     /**
