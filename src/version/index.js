@@ -29,3 +29,19 @@ exports.create = (req,res,next) => {
                throw err;
            })
 }
+
+exports.find = (req,res,next) =>{
+    let now = req.query.timestamp || moment().unix();
+    logger.info(`Finding the key ${req.params.mykey} at ${now}`);
+
+    Version.findByTimeKey(now,req.params.mykey)
+           .then(version => {
+               res.status(200).json({
+                    value: version[0].values.object
+               })
+           })
+           .catch(err => {
+               logger.error(err);
+               throw err;
+           })
+}

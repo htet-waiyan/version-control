@@ -8,5 +8,6 @@ router.get('/echo',(req,res,next) => {
 })
 
 router.post('/object',versionController.create);
+router.get('/object/:mykey',versionController.find);
 
 module.exports = router;
