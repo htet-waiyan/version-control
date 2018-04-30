@@ -12,7 +12,7 @@ exports.create = (req,res,next) => {
                 //new version
                 let v1 = new Version({
                     key: keys[0],
-                    values:[{time: moment().unix(), object: req.body.mykey}]
+                    values:[{time: moment(), object: req.body[keys[0]]}]
                 })
 
                 return v1.save();
@@ -32,10 +32,13 @@ exports.create = (req,res,next) => {
 
 exports.find = (req,res,next) =>{
     let now = req.query.timestamp || moment().unix();
-    logger.info(`Finding the key ${req.params.mykey} at ${now}`);
+    logger.info(`Finding the key ${req.params.mykey} at ${now} | ${moment.unix(now)}`);
 
     Version.findByTimeKey(now,req.params.mykey)
            .then(version => {
+               if(version.length <=0) //no version found
+                return res.status(404).json({message:`No version associated with this key ${req.params.mykey}`})
+
                res.status(200).json({
                     value: version[0].values.object
                })

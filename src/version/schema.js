@@ -50,7 +50,7 @@ VersionSchema.static('findAndUpdate', function(key,value){
         {key,}, // find by key
         {
            $addToSet:{
-               values:{'time': moment().unix(), 'object': value}
+               values:{'time': moment(), 'object': value}
            } 
         },
         {
