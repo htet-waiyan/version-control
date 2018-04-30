@@ -1,6 +1,3 @@
-# version-control
-Time-based version control system
-
 # Version Control
 Time based version control
  Create new version POST /object
