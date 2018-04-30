@@ -24,7 +24,7 @@ VersionSchema.static('findByTimeKey',function(timestamp,key){
             $match:{ //search by key and timestamp
                 $and:[
                     {key,},
-                    {'values.time':{$lte:moment.unix(timestamp).toDate()}}
+                    {'values.time':{$lte:moment.unix(timestamp).utc().toDate()}}
                 ]
             }
         },

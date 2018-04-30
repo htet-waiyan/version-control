@@ -31,10 +31,11 @@ exports.create = (req,res,next) => {
 }
 
 exports.find = (req,res,next) =>{
-    let now = req.query.timestamp || moment().unix();
-    logger.info(`Finding the key ${req.params.mykey} at ${now} | ${moment.unix(now)}`);
+    let timestamp = req.query.timestamp || moment().unix();
+    console.log(timestamp);
+    logger.info(`Finding the key ${req.params.mykey} at ${timestamp} | ${moment.unix(timestamp).utc()}`);
 
-    Version.findByTimeKey(now,req.params.mykey)
+    Version.findByTimeKey(timestamp,req.params.mykey)
            .then(version => {
                if(version.length <=0) //no version found
                 return res.status(404).json({message:`No version associated with this key ${req.params.mykey}`})
